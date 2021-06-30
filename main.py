@@ -1,12 +1,13 @@
 import pygame
 import random
 
-
 pygame.init()
 screen = pygame.display.set_mode((800, 500))
 pygame.display.set_caption('fruit-ninja')
 clock = pygame.time.Clock()
+pygame.time.set_timer(pygame.USEREVENT, 1000)
 
+Images = [pygame.image.load('Assets/apple.png'), pygame.image.load('Assets/banana.png'), pygame.image.load('Assets/orange.png'), pygame.image.load('Assets/pineapple.png'), pygame.image.load('Assets/watermelon.png')]
 
 class Fruit:
     def __init__(self, img):
@@ -38,14 +39,12 @@ class Fruit:
         self.draw()
         self.movement()
 
-
-Images = [pygame.image.load('Assets/apple.png'), pygame.image.load('Assets/banana.png'), pygame.image.load('Assets/orange.png'), pygame.image.load('Assets/pineapple.png'),pygame.image.load('Assets/watermelon.png')]
-
-Fruits = []
+Fruits=[]
 for i in range(random.randint(2, 3)): #no. of fruits spawned at a time
-    Fruits.append(Fruit(Images[0]))#as of now one type of fruit is spawned
+    choice = random.randint(0, 4)#choosing the type of fruit
+    Fruits.append(Fruit(Images[choice]))
 
-background = pygame.image.load('assets/background.png')
+background = pygame.image.load('Assets/background.png')
 while True:
     screen.blit(background, (0, 0))
     for event in pygame.event.get():
@@ -54,6 +53,15 @@ while True:
 
     for fruit in Fruits:
         fruit.update()
+    #this loop is for spawning fruits after the first time
+    for event in pygame.event.get():
+        if event.type == pygame.USEREVENT:
+            for i in range(random.randint(2, 3)):  # no. of fruits spawned at a time
+                choice = random.randint(0, 4)  # choosing the type of fruit
+                Fruits.append(Fruit(Images[choice]))
+    
 
     pygame.display.update()
     clock.tick(50)#speed
+
+
