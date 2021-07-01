@@ -2,12 +2,20 @@ import pygame
 import random
 
 pygame.init()
+
+mouseDown = False
 screen = pygame.display.set_mode((800, 500))
 pygame.display.set_caption('fruit-ninja')
 clock = pygame.time.Clock()
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
+cursorClicked = pygame.image.load('Assets/cursor.png')
+
 Images = [pygame.image.load('Assets/apple.png'), pygame.image.load('Assets/banana.png'), pygame.image.load('Assets/orange.png'), pygame.image.load('Assets/pineapple.png'), pygame.image.load('Assets/watermelon.png')]
+
+def drawCursor(screen, x, y):
+    if mouseDown:
+        screen.blit(pygame.transform.scale(cursorClicked, (40,40)), (x,y))
 
 class Fruit:
     def __init__(self, img):
@@ -50,7 +58,8 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             quit()
-
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouseDown = True
     for fruit in Fruits:
         fruit.update()
     #this loop is for spawning fruits after the first time
@@ -59,8 +68,12 @@ while True:
             for i in range(random.randint(2, 3)):  # no. of fruits spawned at a time
                 choice = random.randint(0, 4)  # choosing the type of fruit
                 Fruits.append(Fruit(Images[choice]))
-    
-
+        
+    if(mouseDown == True):
+        pos = pygame.mouse.get_pos()
+        x = pos[0]
+        y = pos[1]
+        drawCursor(screen, x, y)
     pygame.display.update()
     clock.tick(50)#speed
 
