@@ -67,7 +67,7 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT:
             for i in range(random.randint(2, 3)):  # no. of fruits spawned at a time
-                choice = random.randint(0, 4)  # choosing the type of fruit
+                choice = random.randint(0, 5)  # choosing the type of fruit
                 Fruits.append(Fruit(Images[choice]))
         
     if(mouseDown == True):
