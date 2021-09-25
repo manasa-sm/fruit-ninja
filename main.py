@@ -11,7 +11,8 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 cursorClicked = pygame.image.load('Assets/cursor.png')
 
-Images = [pygame.image.load('Assets/apple.png'), pygame.image.load('Assets/banana.png'), pygame.image.load('Assets/orange.png'), pygame.image.load('Assets/pineapple.png'), pygame.image.load('Assets/watermelon.png')]
+#bomb is added alongwith the fruits, at index 0 
+Images = [pygame.image.load('Assets/bomb.png'),pygame.image.load('Assets/apple.png'), pygame.image.load('Assets/banana.png'), pygame.image.load('Assets/orange.png'), pygame.image.load('Assets/pineapple.png'), pygame.image.load('Assets/watermelon.png')]
 
 def drawCursor(screen, x, y):
     if mouseDown:
@@ -49,7 +50,7 @@ class Fruit:
 
 Fruits=[]
 for i in range(random.randint(2, 3)): #no. of fruits spawned at a time
-    choice = random.randint(0, 4)#choosing the type of fruit
+    choice = random.randint(0, 5)#choosing the type of fruit
     Fruits.append(Fruit(Images[choice]))
 
 background = pygame.image.load('Assets/background.png')
